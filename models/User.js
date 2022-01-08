@@ -1,25 +1,32 @@
 const { Schema, model } = require('mongoose');
-const assignmentSchema = require('./Assignment');
 
 // Schema to create Student model
-const studentSchema = new Schema(
+const userSchema = new Schema(
   {
-    first: {
+    username: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
+    },
+    email: {
       type: String,
       required: true,
-      max_length: 50,
+      unique: true,
+      validate: [isEmail, 'invalid email'],
     },
-    last: {
-      type: String,
-      required: true,
-      max_length: 50,
-    },
-    github: {
-      type: String,
-      required: true,
-      max_length: 50,
-    },
-    assignments: [assignmentSchema],
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'thought',
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+      },
+    ],
   },
   {
     toJSON: {
@@ -30,14 +37,10 @@ const studentSchema = new Schema(
 
 //Create a virtual called `friendCount` that retrieves the length of the user's `friends` array field on query.
 userSchema.virtual('friendCount')
-.get(function () {
-  return this.first + ' ' + this.last;} ).
-  set(function (friendCount) {
-    const [first,last]= friendCount.split(' ');
-    this.set({ first, last });
+  .get(function () {
+    return this.friends.length;
   });
-  
 
-const Student = model('student', studentSchema);
+const User = model('user', userSchema);
 
-module.exports = Student;
+module.exports = User;
