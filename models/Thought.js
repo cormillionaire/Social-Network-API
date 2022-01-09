@@ -4,7 +4,7 @@ const reactionSchema = require('./Reaction');
 // Schema to create a course model
 const thoughtSchema = new Schema(
   {
-    thoughtName: {
+    thoughtText: {
       type: String,
       required: true,
       maxlength: 280,
