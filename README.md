@@ -17,8 +17,6 @@ This is an API to manage thoughts related to users
 ## Usage
 Manage a social media app where people share their thoughts and anyone can react to your thoughts. This is only the backend of this app. 
 
-![TeamProfileGenerator.gif](./images/TeamProfileGenerator.gif)
-
 **Video URL for User CRUD, Thought CRUD: https://drive.google.com/file/d/19NXGAixk6Tg5XQHp3tzuACCz5-hCEaHM/view**
 **Video URL for Reaction CD, Friend CD: https://drive.google.com/file/d/1XnVau9KrN58ecQ5w3VWxv-xcexv2xUkV/view**
 
@@ -28,7 +26,7 @@ Follow endpoint testing completed in above videos via Insomnia or other applicat
 ## Credits
 ### People
 - Nando Davila - https://github.com/nandodavila
-- Garretr Bryan - https://github.com/GarrettLB 
+- Garrett Bryan - https://github.com/GarrettLB 
 
 ### Resources
 - https://stackoverflow.com/questions/18022365/mongoose-validate-email-syntax
