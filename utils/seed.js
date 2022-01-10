@@ -17,7 +17,7 @@ connection.once('open', async () => {
   const users = [];
   const usernames = []
   // // Get some random assignment objects using a helper function that we imported from ./data
-  var thoughts = [];
+  const thoughts = [];
 
   // Loop 5 times -- create users
   for (let i = 0; i < 5; i++) {
@@ -32,10 +32,12 @@ connection.once('open', async () => {
   }
   //Loop through thought and create thoughts
   usernames.forEach(username => {
-    const thoughtText = getRandomThoughts(1);
+    const randomThoughtText = getRandomThoughts(1);
+    var thoughtObj = randomThoughtText.map(thought => {return thought.thoughtText})
     thoughts.push({
-      thoughtText,
+      thoughtText: thoughtObj[0],
       username,
+      reactions: [],
     })
   });
 
