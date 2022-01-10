@@ -77,7 +77,6 @@ module.exports = {
 
   // Add a friend to a user
   addSingleFriend(req, res) {
-    console.log('You are adding a friend');
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $addToSet: { friends: req.params.friendId } },
@@ -97,7 +96,8 @@ module.exports = {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $pull: { friends: req.params.friendId } },
-      { runValidators: true }
+      // Updated to be new so that the updated document would show vs the original document
+      { runValidators: true, new: true }
     )
       .then((user) =>
         !user
