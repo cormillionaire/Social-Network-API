@@ -1,6 +1,5 @@
 const { User, Thought } = require('../models');
 
-
 module.exports = {
   // Get all user
   getUsers(req, res) {
@@ -79,33 +78,30 @@ module.exports = {
   // Add a friend to a user
   addSingleFriend(req, res) {
     console.log('You are adding a friend');
-    console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { friends: req.body } },
-      { new: true }
+      { $addToSet: { friends: req.params.friendId } },
+      { runValidators: true, new: true }
     )
-      .then((user) =>
-        !user
-          ? res
-              .status(404)
-              .json({ message: 'No user found with that ID' })
-          : res.json(user)
+      .then((friend) =>
+        !friend
+          ? res.status(404).json({ message: 'No user found with that ID' })
+          : res.json(friend)
       )
       .catch((err) => res.status(500).json(err));
   },
+
+
   // Remove a friend from a user
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { friends: { friendId: req.params.friendId } } },
-      { new: true }
+      { $pull: { friends: req.params.friendId } },
+      { runValidators: true }
     )
       .then((user) =>
         !user
-          ? res
-              .status(404)
-              .json({ message: 'No user found with that ID' })
+          ? res.status(404).json({ message: 'No user found with that ID' })
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));

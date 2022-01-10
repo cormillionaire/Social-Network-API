@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
 
 // Schema to create Student model
 const userSchema = new Schema(
@@ -31,6 +31,7 @@ const userSchema = new Schema(
   {
     toJSON: {
       getters: true,
+      virtuals: true
     },
   }
 );

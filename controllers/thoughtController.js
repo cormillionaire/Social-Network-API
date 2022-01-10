@@ -85,7 +85,7 @@ module.exports = {
     )
       .then((reaction) => 
       !reaction
-      ? res.status(404).json({ message: 'No thought with this iID' })
+      ? res.status(404).json({ message: 'No thought with this ID' })
       : res.json(reaction.reactions))
       .catch((err) => {
         console.log(err);
@@ -94,19 +94,15 @@ module.exports = {
   },
   //   //Delete reaction
   deleteThoughtReaction(req, res) {
-    Thought.findOne(
+    Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      )
-      .then((thoughtInfo) =>
-      thoughtInfo.reactions.forEach((savedReaction) => {
-        if (savedReaction.id === req.params.reactionId) {
-
-        }
-      })
-      .then((reaction) =>
+      { $pull: {reactions: req.params.reactionId} },
+    )
+      .then((reaction) => {
         !reaction
           ? res.status(404).json({ message: 'No reaction with that ID' })
-          : res.status(200).json({ message: 'Success' }))
+          : res.status(200).json({ message: 'Success' })
+      })
       .catch((err) => res.status(500).json(err));
   },
 };
